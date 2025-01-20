@@ -34,9 +34,14 @@ This is the server-side API for the Scholarship Management Web Application, buil
 - npm (v6 or above)
 - MongoDB (either locally or a cloud-based solution like MongoDB Atlas)
 
-### Clone the Repository
 
-To get started with the project locally, clone the repository:
 
-```bash
-git clone https://github.com/yourusername/scholarship-management-web-server.git
+# Document link:https://docs.google.com/document/d/1xenG5ny3o_UfoLKi_gt1O72HwqY6Nzbk6rzQ5DiaqHo/edit?tab=t.0
+
+# Git-Hub Repository Link:https://github.com/Programming-Hero-Web-Course4/b10a12-client-side-alazim-star
+
+# live clint-site link:
+# Admin email: admin@admin.com
+# Admin password: Aa123456
+# Moderator email:scholar@scholar.com
+# Moderator password: Aa123456
