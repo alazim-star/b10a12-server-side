@@ -1,4 +1,8 @@
-# Scholarship Management Web Application (Server-Side)
+# Assignment Name: b10a11-server-Side (Scholarship Management Web Application)
+## assignment 12_category_020
+
+ 
+# Scholarship Management Web Application (server-Side)
 
 This is the server-side API for the Scholarship Management Web Application, built using **Node.js** and **Express**. The backend handles scholarship data, reviews, user authentication, and other necessary operations to support the client-side application.
 
@@ -11,7 +15,8 @@ This is the server-side API for the Scholarship Management Web Application, buil
 - **Database**: MongoDB is used to store user information, scholarship details, and reviews.
 
 ## Technologies Used
-
+-Node.js
+-Express
 - **Node.js**: A JavaScript runtime for building scalable server-side applications.
 - **Express.js**: A minimal web framework for building RESTful APIs.
 - **MongoDB**: A NoSQL database for storing scholarship data and user reviews.
