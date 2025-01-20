@@ -402,8 +402,6 @@ app.put('/applications/:id', async (req, res) => {
 
 
 
-
-
 // application related api 
 app.get('/applications',async(req,res)=>{
   const cursor =applicationCollection.find()
@@ -439,7 +437,7 @@ app.post('/applications',async(req,res)=>{
   res.send(result)
 })
 
-// / update 
+// /application information update 
   app.patch('/applications/:id',async(req,res)=>{
     const id =req.params.id
     const data=req.body 
