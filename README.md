@@ -27,7 +27,7 @@ This is the server-side API for the Scholarship Management Web Application, buil
 - **dotenv**: For managing environment variables in the application.
 
 ## Installation
-
+jsonwebtoken ,cors,mongodb,
 ### Prerequisites
 
 - Node.js (v14 or above)
