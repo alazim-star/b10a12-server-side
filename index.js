@@ -167,7 +167,59 @@ app.patch('/users/admin/:id',async(req,res)=>{
   res.send(result)
 })
 
-//admin roll set korar jonno 
+app.get('/admin-stats', async (req, res) => {
+  const allUsers = await userCollection.estimatedDocumentCount();
+  const allScholarship = await scholarshipCollection.estimatedDocumentCount();
+  const allApplication = await applicationCollection.estimatedDocumentCount();
+  const allPaymentParson = await paymentCollection.estimatedDocumentCount();
+
+  // Aggregating the total revenue (sum of applicationFees)
+  const result = await paymentCollection.aggregate([
+    {
+      $group: {
+        _id: null,
+        totalRevenue: { $sum: '$applicationFees' }
+      }
+    }
+  ]).toArray();
+
+  const revenue = result.length > 0 ? result[0].totalRevenue : 0;
+
+  // Sending all stats including the total revenue
+  res.send({
+    allUsers,
+    allScholarship,
+    allApplication,
+    allPaymentParson,
+    revenue // include the revenue in the response
+  });
+});
+
+
+
+
+
+
+
+app.get('/users/moderator/:email', async (req, res) => {
+  const email = req.params.email;
+
+  try {
+      const user = await userCollection.findOne({ email });
+
+      if (!user) {
+          return res.status(404).send({ error: 'User not found' });
+      }
+
+      const isModerator = user.role === 'moderator';
+      res.send({ moderator: isModerator });
+  } catch (error) {
+      console.error('Error fetching user:', error);
+      res.status(500).send({ error: 'Internal Server Error' });
+  }
+});
+
+//moderator roll set korar jonno 
 app.patch('/users/moderator/:id',async(req,res)=>{
   const id=req.params.id
   const filter={_id: new ObjectId(id)}
@@ -180,6 +232,7 @@ app.patch('/users/moderator/:id',async(req,res)=>{
   const result=await userCollection.updateOne(filter,updatedDoc)
   res.send(result)
 })
+
 
 
 
@@ -276,7 +329,7 @@ app.get('/allScholarship',async(req,res)=>{
 
 
 // for give data in server use post 
-app.post('/allScholarship',verifyToken,async (req,res)=>{
+app.post('/allScholarship',async (req,res)=>{
     const newScholarship=req.body
     console.log(newScholarship);
     const result=await scholarshipCollection.insertOne(newScholarship)
@@ -439,11 +492,11 @@ app.post('/payments', async (req, res) => {
 
     const query = {
       _id: {
-        $in: payment.applicationId.map(id => new ObjectId(id))
+        $in: payment.applicationIds.map(id => new ObjectId(id))
       }
     };
-
-    const deleteResult = await paymentCollection.deleteMany(query);
+console.log(query);
+    const deleteResult = await applicationCollection.deleteMany(query);
 
     // Ensure only one response object is sent
     res.send({ paymentResult, deleteResult });
@@ -453,6 +506,17 @@ app.post('/payments', async (req, res) => {
   }
 });
 
+
+// user who payment by card 
+app.get('/payments/:email',verifyToken,async(req,res)=>{
+  const query={email: req.params.email}
+  if (req.params.email !== req.decoded.email) {
+    return res.status(403).send({message:'forbidden access'})
+    
+  }
+  const result=await paymentCollection.find(query).toArray()
+  res.send(result)
+})
 
 
 
