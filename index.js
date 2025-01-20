@@ -119,8 +119,6 @@ app.get('/users/:email', async (req, res) => {
 app.post('/users',async(req,res)=>{
   const user=req.body
   // jodi email akta take user er tahole abar sei email save hobe na 
-  // insert email if use doesnot exists:
-  //you can do this in many ways (1,email unique 2. upsert 3.simple checking)
   const query={email:user.email}
   const existingUser=await userCollection.findOne(query)
   if (existingUser) {
