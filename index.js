@@ -308,7 +308,7 @@ res.send(result)
 
 
 
-
+// for delete review 
 
 app.delete('/reviews/:id',async(req,res)=>{
   const id=req.params.id 
